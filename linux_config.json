@@ -1,0 +1,101 @@
+{
+    "agent": {
+        "metrics_collection_interval": 60,
+        "region": "us-west-1",
+        "logfile": "/opt/aws/amazon-cloudwatch-agent/logs/amazon-cloudwatch-agent.log",
+        "debug": false,
+        "run_as_user": "cwagent"
+    },
+    "metrics": {
+        "metrics_collected": {
+            "collectd": {},
+            "cpu": {
+                "resources": [
+                    "*"
+                ],
+                "measurement": [
+                    {
+                        "name": "cpu_usage_idle",
+                        "rename": "CPU_USAGE_IDLE",
+                        "unit": "Percent"
+                    },
+                    {
+                        "name": "cpu_usage_nice",
+                        "unit": "Percent"
+                    },
+                    {
+                        "name": "cpu_usage_system",
+                        "rename": "CPUSystemUsage",
+                        "unit": "Percent"
+                    },
+                    "cpu_usage_guest"
+                ],
+                "totalcpu": false,
+                "metrics_collection_interval": 10,
+                "append_dimensions": {
+                    "test": "test1",
+                    "date": "2017-10-01"
+                }
+            },
+            "mem": {
+                "measurement": [
+                    {
+                        "name": "mem_total",
+                        "rename": "TotalMemory",
+                        "unit": "Bytes"
+                    },
+                    {
+                        "name": "used",
+                        "rename": "MemoryUsed"
+                    },
+                    {
+                        "name": "mem_available",
+                        "rename": "MemoryAvailable"
+                    }
+                ]
+            },
+            "disk": {
+                "measurement": [
+                    {
+                        "name": "disk_total",
+                        "rename": "TotalDisk",
+                        "unit": "Bytes"
+                    },
+                    {
+                        "name": "disk_free",
+                        "rename": "FreeDisk",
+                        "unit": "Bytes"
+                    },
+                    "disk_used_percent"
+                ],
+                "resources": [
+                    "*"
+                ],
+                "drop_device": true
+            },
+            "processes": {
+                "measurement": [
+                    "running",
+                    "sleeping",
+                    "dead"
+                ]
+            }
+        },
+        "append_dimensions": {
+            "ImageId": "${aws:ImageId}",
+            "InstanceId": "${aws:InstanceId}",
+            "InstanceType": "${aws:InstanceType}",
+            "AutoScalingGroupName": "${aws:AutoScalingGroupName}"
+        },
+        "aggregation_dimensions": [
+            [
+                "AutoScalingGroupName"
+            ],
+            [
+                "InstanceId",
+                "InstanceType"
+            ],
+            []
+        ]
+    }
+}

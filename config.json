@@ -1,0 +1,73 @@
+{
+    "agent": {
+      "metrics_collection_interval": 60,
+      "logfile": "/opt/aws/amazon-cloudwatch-agent/logs/amazon-cloudwatch-agent.log"
+    },
+"metrics": {
+  "metrics_collected": {
+    "mem": {
+      "measurement": [
+        {"name": "used", "rename": "MemoryUsed"},
+        {"name": "mem_available", "rename": "MemoryAvailable"},
+        {"name": "mem_buffered", "rename": "MemBuffered"},
+        {"name": "mem_cached","rename": "MemoryCached"},
+        {"name": "mem_total", "rename": "TotalMemory"}
+      ]
+      },
+      "disk": {
+        "measurement": [
+          {"name": "disk_used_percent", "rename": "diskUsed"},
+          {"name": "disk_free", "rename": "FreeDisk"},
+          {"name": "disk_total", "rename": "TotalDisk"},
+          {"name": "disk_used", "rename": "UsedDisk"}
+                ],
+        "resources": [
+          "*"
+        ]
+      },
+      "cpu": {
+        "measurement": [
+            {"name": "cpu_time_user", "rename": "CpuTimeUser"},
+            {"name": "cpu_time_system", "rename": "CpuTimeSystem"},
+            {"name": "cpu_usage_idle", "rename": "cpuUsage"},
+            {"name": "cpu_usage_active", "rename": "cpuActiveUsage"},
+            {"name": "cpu_usage_user", "rename": "cpuUsageUser"},
+            {"name": "cpu_usage_system", "rename": "cpuUsageSystem"}
+        ],
+        "totalcpu": false,
+        "resources": [
+            "*"
+        ]
+      },
+      "diskio": {
+        "measurement": [
+            {"name": "diskio_read_bytes", "rename": "DiskRead"},
+            {"name": "diskio_write_bytes", "rename": "DiskWrite"},
+            {"name": "diskio_read_time", "rename": "DiskReadTime"},
+            {"name": "diskio_write_time", "rename": "DiskWriteTime"}
+        ],
+        "resources": [
+            "*"
+        ]
+      },
+      "swap": {
+        "measurement": [
+            {"name": "swap_free","rename": "SwapFree"},
+            {"name": "swap_used", "rename": "SwapUsed"},
+            {"name": "swap_used_percent", "rename": "SwapUsedPercentage"}
+        ]
+      },
+      "processes": {
+        "measurement": [
+            {"name": "processes_total", "rename": "TotalProcss"},
+            "running",
+            "stopped",
+            "dead"
+        ]
+      }
+    },
+  "append_dimensions": {
+    "InstanceId": "${aws:InstanceId}"
+  }
+}
+}
